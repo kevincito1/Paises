@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Countries from './components/Countries';
+import urlApi from './assets/useFetchDataCountries';
+
+
+
+
+
 
 function App() {
+  const {data} = urlApi('https://restcountries.eu/rest/v2/all');
+  console.log(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data.slice(0, 20).map(country => 
+        <Countries 
+        flag={country.flag}
+        name={country.name}
+        capital={country.capital}
+        demonym={country.demonym}
+        region={country.region}
+        population={country.population}
+        />
+        )}     
     </div>
   );
 }
